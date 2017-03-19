@@ -1,0 +1,99 @@
+body {
+    	background: #00a651;
+    	text-align: center;
+    	background-color: white;
+    	color: black;
+
+      width: 40%;
+      margin: 8px auto;
+	}
+
+.center{
+/*	width: 60%;
+	height: 60%;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+  transform: translate(0%, -40%)*/
+}
+
+#game{
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.button{
+/*    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;*/
+}
+
+
+.footer {   
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	height:30px;
+	width:100%;
+	background:#999;
+}
+
+div.card {
+  width: 100%;
+  padding-bottom: 100%; /* 16:9 */
+  position: relative;
+  margin: auto;
+  background: blue;
+}
+
+div.card > div {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+
+  color: white;
+  /*font-size: 24px;*/
+  text-align: center;
+}
+
+
+
+/*.card {
+  position: relative;
+  float: left;
+  margin-right: 10px;
+  width: 30%;
+  height: 100%;
+  border-radius: 10px;
+  background: brown;
+  -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  /*transform: translate(85%, 0%)*/
+/*}*/
+/*.card_bottom{
+  background-color: #80C5A0;
+  width: 400px;
+  height: 100px;
+  border-radius: 50% / 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+ }*/
+
+@media only screen and (max-width: 768px) {
+
+/*	.card {
+  width: 100%;
+  height: 100%;
+    transform: translate(0%, 0%)
+}*/
