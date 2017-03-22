@@ -1,123 +1,3 @@
-// Initialize Firebase
-var config = {
-	apiKey: "AIzaSyBQkoOHt825UfbFnDSN76IzWEbQHvffRbQ",
-	authDomain: "things-f7808.firebaseapp.com",
-	databaseURL: "https://things-f7808.firebaseio.com",
-	storageBucket: "things-f7808.appspot.com",
-	messagingSenderId: "302493813871"
-};
-firebase.initializeApp(config);
-
-var roomID;
-var name;
-// var thing = "Draw a Card";
-var response = "";
-var host;
-// var Things = firebase.database().ref("/").child('Things');
-var count = 0;
-getCount();
-var usedCards = [];
-
-
-function host_join(){
-	name = document.forms["host_form"]["name"].value;
-	roomID = "room1"; // make rand word gen\
-
-	// if name is null 
-
-	// hide host form
-
-	host = 1; 
-
-	var dbRef = firebase.database().ref("/"+ roomID).child('thing');
-	dbRef.on('value', snap => document.getElementById('card').innerText = snap.val());
-	writeThing(roomID,"Draw A Card");
-	writeUserSubmit(roomID, name, response);
-	// console.log(count);
-}
-
-function join_game(){
-	roomID = document.forms["join_form"]["roomID"].value;
-	name = document.forms["join_form"]["name"].value;
-	// if name or room is null retry
-	// if room already exists retry
-
-	// hide join form 
-
-	host = 0;
-	writeUserSubmit(roomID, name, response);
-}
-
-function writeUserSubmit(roomID,name,answer) {
-	firebase.database().ref("/"+roomID+"/"+name).update({
-		answer: answer,
-	});
-}
-
-function writeThing(roomID, card) {
-	firebase.database().ref('/' + roomID).update({
-		thing: card,
-	});
-}
-
-
-// function getThing(num){
-// 	return firebase.database().ref('/Things/' + num).once('value').then(function(snapshot) {
-// 		thing =  snapshot.val();
-// 	});
-// }
-
-
-
-function getAndshareThing(roomID, cardID){
-	return firebase.database().ref('/Things/' + cardID).once('value').then(function(snapshot) {
-		writeThing(roomID, snapshot.val());
-	});
-}
-
-function getCount(){
-	firebase.database().ref().once("value").then(function(snapshot) {
-    	count = snapshot.child("/Things").numChildren();
-    	count -=1 // account for "NoMoreCards" child.
-  });
-}
-
-function getRandCardID(){
-	id = (Math.floor((Math.random() * count)))+1; 
-	if (usedCards.length < count){
-		if (!usedCards.includes(id)){
-			usedCards.push(id);
-			return id;
-		}else{
-			return getRandCardID();
-		}
-	}
-	return "NoMoreCards" ;
-}
-
-
-// function getNextMove(returnVal){
-// 	return (returnVal);
-// }
-// function getMyUserData(userId) {
-// 	getData(userId,getNextMove);
-// }
-// function getData(userId,next){
-
-// 	firebase.database().ref('Things/' + userId).once('value').then(function(snapshot) {
-// 		var exists = (snapshot.val() !== null);
-// 		if (exists){
-// 			next(snapshot.val());
-// 		}else{
-// 			next("ERROR");
-// 		}
-// 	});
-// }
-
-
-
-
-/*
 var cards = [
 
 	"Things cannibals think about while dinning",
@@ -816,29 +696,14 @@ var cards = [
 	"Things You Shouldn't Give As A Gift",
 	"Things A Gentleman Shouldn't Do"
 ];
-*/
 
-// document.getElementById("card").innerHTML = "Draw a card";
-// document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
+document.getElementById("card").innerHTML = "Draw a card";
+document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
 function myFunction() {
-    var id = getRandCardID(); // get rand card from cards list
-
-	getAndshareThing(roomID, id);
-}
-
-
-
-   
-
-
-
-
-    // getMyUserData(1);
-    // console.log(getMyUserData(1));
-
-    /*thing = getThing(id);*/
-    // document.getElementById("card").innerHTML = thing; // set HTML ID to card selected
-    // writeThing(roomID, thing); // set HTML ID to card selected
-    // cards.splice(id, 1); // remove card from pile
+    var id = Math.floor((Math.random() * cards.length)); // get rand card from cards list
+    var thing = cards[id];
+    document.getElementById("card").innerHTML = thing; // set HTML ID to card selected
+    cards.splice(id, 1); // remove card from pile
     // Updated HTML ID to remaining cards left
-    // document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
+    document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
+}

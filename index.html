@@ -4,6 +4,8 @@
 	<title>The Game of Things</title>
 
 	<!-- <link rel="stylesheet" href="style.css"> -->
+
+	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 	<script src="script.js"></script>
 
 	<!-- tab icon -->
@@ -17,10 +19,11 @@
 <h2>The Game of Things</h2>
 
 <div class="center">
-	<a class="button" href="./local.html">Button</a>
-	<!-- <button type="button" onclick="window.location.href='/local.html'">Start Game</button> -->
-	<!-- <button type="button" onclick="window.location.href='/multiplayer.html'">Multiplayer</button> -->
+	<a class="button" onclick="window.open('local.html','_self');">Local</a>
+	<a class="button" onclick="window.open('multiplayer.html','_self');">Multiplayer</a>
 </div>
+
+<br>
 
 <div id="rules">
 <p>Things... is a party game where everyone writes a response to a particular prompt, such as "Things... you shouldn't put in your mouth," and the players then try to guess which player wrote which response.</p>
