@@ -19,56 +19,53 @@
 
 
 <div id=MuliplayerLogin>
-	Host: <br>
-    <form name="host_form">
+	<div id="LoginButtons">
+		<button id="hostButton" onclick="hostButton()"> Create </button>
+		<button id="joinButton" onclick="joinButton()"> Join </button>
+	</div>
+    <form id="host_form" name="host_form">
         Name: <input type="text" name="name"><br>
-        <input type="button" value="Submit" onclick="host_join()">
+        <input type="button" value="Create" onclick="host_join()">
+        <input type="button" value="back" onclick="backToMain()">
     </form>
-    <br>
-    Join: <br>
-    <form name="join_form">
+
+    <form id="join_form" name="join_form">
 
 	    RoomID: <input type="text" name="roomID"><br>
 	    Name: <input type="text" name="name"><br>
 
-	    <input type="button" value="Submit" onclick="join_game()">
-
+	    <input type="button" value="Join" onclick="join_game()">
+		<input type="button" value="back" onclick="backToMain()">
     </form>	
 
 </div>
 
+<div id = "gameBoard">
 
-
-
-<div class="center">
 	<div class="card" onclick="myFunction()">
-		<div id="game">
-			<h1 id="card"> tap me </h1>
-			<!-- <div class = "card_bottom"></div> -->
-			<!-- <button class="button" onclick="myFunction()">DRAW</button> -->
-		</div>
+		<h1 id="card"> unable to connect to server </h1>
 	</div>
 
-	    <br>
-    Answer paper: <br>
-    <form name="responce_form">
+	<div id="responce">
+		Answer paper: <br>
+		<form name="responce_form">
+    		<input type="text" name="ans"><br>
+    		<input type="button" value="Submit" onclick="submitResponce()">
+			 </form>	
+	</div>
 
-	    <input type="text" name="ans"><br>
+	<div id="StartGame">
+		<button id="responcelistClick" onclick="AllIN()"> All in </button>
+	</div>
 
-	    <input type="button" value="Submit" onclick="submitResponce()">
-
-    </form>	
-
+	<div id= "responcelist">
+		<div id="thing"></div>
+		<!-- <button id="nextThing" onclick="nextThing()"> Next </button> -->
+	</div>
+	
 </div>
 
-<div class="footer"> 
-	<p id="remaining"></p>
-</div>
 
-
-<button id="responcelistClick" onclick="AllIN()"> All in </button>
-
-<div id= "responcelist"> </div>
 
 
 </body>

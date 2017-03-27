@@ -1,0 +1,18 @@
+#LoginButtons{
+	display: block;
+}
+
+#host_form{
+	display: none;
+}
+#join_form{
+	display: none;
+}
+
+#gameBoard{
+	display: none;
+}
+
+#responcelist{
+	display: none;
+}

@@ -23,8 +23,30 @@ var responceJSON;
 var responseARRAY = [];
 var flag=0;
 
+// Style
+function hostButton(){
+	document.getElementById("LoginButtons").style.display = "none";
+	document.getElementById("host_form").style.display = "block";
+	
+}
+function joinButton(){
+	document.getElementById("LoginButtons").style.display = "none";
+	document.getElementById("join_form").style.display = "block";
+}
+
+function backToMain(){
+	document.getElementById("LoginButtons").style.display = "block";
+	document.getElementById("host_form").style.display = "none";
+	document.getElementById("join_form").style.display = "none";
+}
+
+
 
 function host_join(){
+	
+	document.getElementById("host_form").style.display = "none";
+	document.getElementById("gameBoard").style.display = "block";
+
 	name = document.forms["host_form"]["name"].value;
 	roomID = "room3"; // make rand word gen\
 
@@ -47,6 +69,10 @@ function syncDBtoDiv(roomID,dbNode,divID){
 
 
 function join_game(){
+
+	document.getElementById("join_form").style.display = "none";
+	document.getElementById("gameBoard").style.display = "block";
+
 	roomID = document.forms["join_form"]["roomID"].value;
 	name = document.forms["join_form"]["name"].value;
 	// if name or room is null retry
@@ -107,8 +133,13 @@ function getRandCardID(){
 
 
 function AllIN(){
-
-
+	document.getElementById("responce").style.display = "none";
+	document.getElementById("StartGame").style.display = "none";
+	
+	if host {
+		document.getElementById("responcelist").style.display = "block";
+	}
+	
 	getVal();
 
 }
@@ -140,7 +171,7 @@ function printVal(){
 		var node = document.createElement("LI");
 	    var textnode = document.createTextNode(li);
 	    node.appendChild(textnode);
-	    document.getElementById("responcelist").appendChild(node);
+	    document.getElementById("thing").appendChild(node);
 	}
 
 	responseARRAY = [];
