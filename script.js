@@ -136,7 +136,7 @@ function AllIN(){
 	document.getElementById("responce").style.display = "none";
 	document.getElementById("StartGame").style.display = "none";
 	
-	if host {
+	if (host) {
 		document.getElementById("responcelist").style.display = "block";
 	}
 	
