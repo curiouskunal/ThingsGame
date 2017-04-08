@@ -24,18 +24,18 @@
 		<div class="button" id="joinButton" onclick="joinButton()"> Join </div>
 	</div>
     <form id="host_form" name="host_form">
-        Name: <input type="text" name="name"><br>
-        <input type="button" value="Create" onclick="host_join()">
-        <input type="button" value="back" onclick="backToMain()">
+        <input type="text" name="name" placeholder="Name"><br>
+        <input class="button" type="button" value="Create" onclick="host_join()">
+        <input class="button" type="button" value="back" onclick="backToMain()">
     </form>
 
     <form id="join_form" name="join_form">
 
-	    RoomID: <input type="text" name="roomID"><br>
-	    Name: <input type="text" name="name"><br>
+	    <input type="text" name="roomID" placeholder="RoomID"><br>
+	   	<input type="text" name="name" placeholder="Name"><br>
 
-	    <input type="button" value="Join" onclick="join_game()">
-		<input type="button" value="back" onclick="backToMain()">
+	    <input class="button" type="button" value="Join" onclick="join_game()">
+		<input class="button" type="button" value="back" onclick="backToMain()">
     </form>	
 
 </div>
@@ -47,9 +47,8 @@
 	</div>
 
 	<div id="responce">
-		Answer paper: <br>
 		<form name="responce_form">
-    		<input type="text" name="ans"><br>
+    		<input type="text" name="ans" placeholder="Responce"><br>
     		<input type="button" value="Submit" onclick="submitResponce()">
 			 </form>	
 	</div>
