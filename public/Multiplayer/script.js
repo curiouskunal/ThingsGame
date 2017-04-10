@@ -40,13 +40,22 @@ function backToMain(){
 	document.getElementById("join_form").style.display = "none";
 }
 
+function SelectCard(){
+	document.getElementById("responce").style.display = "block";
+	document.getElementById("cardButtons").style.display = "none";
+	if (host){
+		document.getElementById("StartGame").style.display = "block";
+	}
+
+}
 
 
 function host_join(){
 	
 	document.getElementById("host_form").style.display = "none";
 	document.getElementById("gameBoard").style.display = "block";
-
+	document.getElementById("cardButtons").style.display = "block";
+	
 	name = document.forms["host_form"]["name"].value;
 	roomID = "room3"; // make rand word gen\
 

@@ -35,7 +35,19 @@ body{
 	display: none;
 }
 
+#cardButtons{
+	display: none;
+}
+
 #responcelist{
+	display: none;
+}
+
+#responce{
+	display: none;
+}
+
+#StartGame{
 	display: none;
 }
 

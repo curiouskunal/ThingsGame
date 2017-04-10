@@ -49,15 +49,20 @@
 
 <div id = "gameBoard">
 
-	<div class="card" onclick="myFunction()">
+	<div class="card">
 		<h1 id="card"> unable to connect to server </h1>
 	</div>
 
+    <div class= buttonHolder id=cardButtons>
+        <div class="button" type="button" value="Select" onclick="SelectCard()">Select</div>
+        <div class="button" type="button" value="Next" onclick="myFunction()">Next</div>
+    </div>
+	
 	<div id="responce">
 		<form name="responce_form">
     		<input type="text" name="ans" placeholder="Responce"><br>
-    		<input type="button" value="Submit" onclick="submitResponce()">
-			 </form>	
+    		<div class="button"type="button" value="Submit" onclick="submitResponce()"> Submit </div>
+		</form>	
 	</div>
 
 	<div id="StartGame">
