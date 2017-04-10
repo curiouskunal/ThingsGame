@@ -29,6 +29,7 @@ function hostButton(){
 	document.getElementById("host_form").style.display = "block";
 	
 }
+
 function joinButton(){
 	document.getElementById("LoginButtons").style.display = "none";
 	document.getElementById("join_form").style.display = "block";
@@ -55,7 +56,7 @@ function host_join(){
 	document.getElementById("host_form").style.display = "none";
 	document.getElementById("gameBoard").style.display = "block";
 	document.getElementById("cardButtons").style.display = "block";
-	
+
 	name = document.forms["host_form"]["name"].value;
 	roomID = "room3"; // make rand word gen\
 
