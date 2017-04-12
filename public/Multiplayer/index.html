@@ -55,7 +55,7 @@
 
     <div class= buttonHolder id=cardButtons>
         <div class="button" type="button" value="Select" onclick="SelectCard()">Select</div>
-        <div class="button" type="button" value="Next" onclick="myFunction()">Next</div>
+        <div class="button" type="button" value="Next" onclick="myFunction()">Draw</div>
     </div>
 	
 	<div id="responce">
@@ -66,7 +66,12 @@
 	</div>
 
 	<div id="StartGame">
-		<button id="responcelistClick" onclick="AllIN()"> All in </button>
+		Players:
+		<div id="playersIN"></div>
+		
+		<div>
+			<div class="button" id="responcelistClick" onclick="AllIN()"> All in </div>
+		</div>
 	</div>
 
 	<div id= "responcelist">

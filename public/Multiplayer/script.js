@@ -44,10 +44,6 @@ function backToMain(){
 function SelectCard(){
 	document.getElementById("responce").style.display = "block";
 	document.getElementById("cardButtons").style.display = "none";
-	if (host){
-		document.getElementById("StartGame").style.display = "block";
-	}
-
 }
 
 
@@ -82,6 +78,7 @@ function join_game(){
 
 	document.getElementById("join_form").style.display = "none";
 	document.getElementById("gameBoard").style.display = "block";
+	document.getElementById("responce").style.display = "block";
 
 	roomID = document.forms["join_form"]["roomID"].value;
 	name = document.forms["join_form"]["name"].value;
@@ -98,6 +95,11 @@ function join_game(){
 function submitResponce(){
 	answer = document.forms["responce_form"]["ans"].value;
 	writeUserSubmit(roomID,name,answer);
+	document.getElementById("cardButtons").style.display = "none";
+	document.getElementById("responce").style.display = "none";
+	if (host){
+		document.getElementById("StartGame").style.display = "block";
+	}
 }
 
 
