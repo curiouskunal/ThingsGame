@@ -64,8 +64,13 @@ function host_join(){
 
 	syncDBtoDiv(roomID,'thing','card');
 	writeThing(roomID,"Draw A Card");
-	writeUserSubmit(roomID, name, response);
+	// writeUserSubmit(roomID, name, response);
 	// console.log(count);
+
+	// retrieve the last record from `ref`
+
+	getPlayers();
+
 }
 
 function syncDBtoDiv(roomID,dbNode,divID){
@@ -89,7 +94,7 @@ function join_game(){
 
 	host = 0;
 	syncDBtoDiv(roomID,'thing','card');
-	writeUserSubmit(roomID, name, response);
+	// writeUserSubmit(roomID, name, response);
 }
 
 function submitResponce(){
@@ -143,6 +148,20 @@ function getRandCardID(){
 }
 
 
+function getPlayers(){
+	firebase.database().ref('/' + roomID + '/users/').on('child_added', function(snapshot) {
+	   // all records after the last continue to invoke this function
+	   
+	   var li = snapshot.key;
+
+		var node = document.createElement("LI");
+	    var textnode = document.createTextNode(li);
+	    node.appendChild(textnode);
+	    document.getElementById("playersIN").appendChild(node);
+
+	});
+}
+
 
 function AllIN(){
 	document.getElementById("responce").style.display = "none";
@@ -176,7 +195,7 @@ function printVal(){
 
 	for (var i=0; i<responseARRAY.length; i++){
 
-		console.log(responseARRAY[i]);
+		// console.log(responseARRAY[i]);
 
 		var li = responseARRAY[i];
 
