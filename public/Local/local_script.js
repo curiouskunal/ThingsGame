@@ -1,71 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<h2>The Game of Things</h2>
-
-<div class="center">
-	<div id="game">
-		<h1 id="card"></h1>
-		<button class="button" onclick="myFunction()">DRAW</button>
-	</div>
-</div>
-
-<div class="footer"> 
-	<p id="remaining"></p>
-</div>
-
-<style type="text/css">
-	body {
-    	text-align: center;
-    	background-color: white;
-    	color: black;
-	}
-
-	.center{
-		width: 100%;
-		height: 60%;
-		position: absolute;
-		top:0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		margin: auto;
-	}
-
-	#game{
-		margin: 0;
-	    position: absolute;
-	    top: 50%;
-	    left: 50%;
-	    margin-right: -50%;
-	    transform: translate(-50%, -50%)
-	}
-
-	.button{
-	    background-color: #4CAF50; /* Green */
-	    border: none;
-	    color: white;
-	    padding: 15px 32px;
-	    text-align: center;
-	    text-decoration: none;
-	    display: inline-block;
-	    font-size: 16px;
-	}
-
-
-	.footer {   
-		position:absolute;
-		left:0px;
-		bottom:0px;
-		height:30px;
-		width:100%;
-		background:#999;
-	}
-
-</style>
-
-<script>
 var cards = [
 
 	"Things cannibals think about while dinning",
@@ -84,7 +16,7 @@ var cards = [
 	"Things that confirm your house is haunted!",
 	"Things that confirm your life is going downhill",
 	"Things that go bad",
-	"Things that happen in vegas that should stay in vegas!!",
+	"Things that happen in Vegas that should stay in Vegas!!",
 	"Things that jiggle",
 	"Things that make sex fun!!!",
 	"Things that make you feel stupid!",
@@ -97,7 +29,7 @@ var cards = [
 	"Things that squirt",
 	"Things that you will find in (name room of house..bathroom, kitchen, etc)",
 	"Things that you can trip over",
-	"Things that you love to watch on tv!",
+	"Things that you love to watch on TV!",
 	"Things that you shouldn't do in public.",
 	"Things that you shouldn't swallow.",
 	"Things that you shouldn't throw off of a building.",
@@ -113,8 +45,8 @@ var cards = [
 	"Things you don't want to find in your bed",
 	"Things you might find in a library",
 	"Things you name home brewed beer!",
-	"Things you return from your christmas gifts...",
-	"Things you shop for on black friday!",
+	"Things you return from your Christmas gifts...",
+	"Things you shop for on black Friday!",
 	"Things you should be thankful for!!",
 	"Things you should do to get ready for winter!!!",
 	"Things you should give as birthday gifts!",
@@ -169,7 +101,7 @@ var cards = [
 	"Things you would consider strange to include on a resume",
 	"Things there should be an award for",
 	"Things people do when no one is looking",
-	"Things you shouldn't do when havig dinner with the Queen",
+	"Things you shouldn't do when having dinner with the Queen",
 	"Things you shouldn't make fun of",
 	"Things that make you giggle",
 	"Things you shouldn't teach your pets to do",
@@ -223,7 +155,7 @@ var cards = [
 	"Things that shouldn't be lumpy",
 	"Things fish think about as they swim in their aquarium",
 	"Things that confirm that your life is going downhill",
-	"Things you could use as an excuse on judgement day",
+	"Things you could use as an excuse on judgment day",
 	"Things that would make golf more exciting",
 	"Things you shouldn't advertise in the classified ads",
 	"Things you shouldn't do in the house",
@@ -269,7 +201,7 @@ var cards = [
 	"Things you shouldn't put in your mouth",
 	"Things you shouldn't do at a funeral",
 	"Things that exhaust you",
-	"Things you shouldn't do at the theatre",
+	"Things you shouldn't do at the theater",
 	"Things you shouldn't do in the bathtub",
 	"Things you shouldn't write on a Valentine's card",
 	"Things you shouldn't say to your grandmother",
@@ -302,7 +234,7 @@ var cards = [
 	"Things that make you go ooooh",
 	"Things that really need a referee",
 	"Things you shouldn't put on the kitchen table",
-	"Things you shouldnt do in a hospital",
+	"Things you shouldn't do in a hospital",
 	"Things you shouldn't say to a police officer",
 	"Things you shouldn't lick",
 	"Things you would do if you changed genders for a day",
@@ -331,7 +263,7 @@ var cards = [
 	"Things people like about you",
 	"Things you shouldn't say to your doctor",
 	"Things that confirm you are losing your mind",
-	"Things that dont last very long",
+	"Things that don't last very long",
 	"Things you didn't realize until it was too late",
 	"Things that confirm you have had to much to drink",
 	"Things you keep hidden",
@@ -377,7 +309,7 @@ var cards = [
 	"Things that don't make sense",
 	"Things you wish you could do in your sleep",
 	"Things you would like to study",
-	"Things that would get you sent to the Principal's office",
+	"Things that would get you sent to the Principals office",
 	"Things you might complain about in Hell",
 	"Things you shouldn't celebrate",
 	"Things you hope you can still do when you are 85",
@@ -443,7 +375,7 @@ var cards = [
 	"Things you shouldn't say to break the silence in a conversation",
 	"Things you would do with a million dollars",
 	"Things you wish you could buy out of vending machines",
-	"Things you shoudn't do at a job interview",
+	"Things you shouldn't do at a job interview",
 	"Things you shouldn't accept from strangers",
 	"Things you shouldn't do quickly",
 	"Things That Are Harder Than They Look",
@@ -466,8 +398,8 @@ var cards = [
 	"Things You Shouldn't Do In The Bathtub",
 	"Things You Can Never Find",
 	"Things You Shouldn't Write On A Valentine's Card",
-	"Things You Shouldn't Do At The Theatre",
-	"Things You Shouldn't Say To You Granmother",
+	"Things You Shouldn't Do At The Theater",
+	"Things You Shouldn't Say To You Grandmother",
 	"Things Kids Know More About Than Adults",
 	"Things That Confirm Your Small Town Is Backward",
 	"Things That Would Get You Fired",
@@ -487,7 +419,7 @@ var cards = [
 	"Things You Shouldn't Touch",
 	"Things That Could Spoil Your Appetite",
 	"Things That Make You Feel Stupid",
-	"Things That Are Embarassing To Say",
+	"Things That Are Embarrassing To Say",
 	"Things You Shouldn't try To Do In The Dark",
 	"Things You Shouldn't Put On The Front Lawn",
 	"Things That Don't Last Very Long",
@@ -565,7 +497,7 @@ var cards = [
 	"Things A Doctor Shouldn't Do While Performing Surgery",
 	"Things You Shouldn't Throw Off A Building",
 	"Things Fish Think About As They Swim In Their Aquarium",
-	"Things You Could Use As An Excuse On Judgement Day",
+	"Things You Could Use As An Excuse On Judgment Day",
 	"Things You Would Hate To Do For A Living",
 	"Things You Shouldn't Do In a Hospital",
 	"Things That Would Make Golf More Exciting",
@@ -648,7 +580,7 @@ var cards = [
 	"Things That Could Cause An Accident",
 	"Things You Shouldn't Teach Your Pets To Do",
 	"Things You Shouldn't Keep In Your Pockets",
-	"Things You Don't Like About Family Get-Togethers.",
+	"Things You Don't Like About Family Get-Together.",
 	"Things You Shouldn't Say About Your Children",
 	"Things You Shouldn't Photograph",
 	"Things You Wish People Would Stop Talking About",
@@ -768,13 +700,10 @@ var cards = [
 document.getElementById("card").innerHTML = "Draw a card";
 document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
 function myFunction() {
-    var id = Math.floor((Math.random() * cards.length));
+    var id = Math.floor((Math.random() * cards.length)); // get rand card from cards list
     var thing = cards[id];
-    document.getElementById("card").innerHTML = thing;
-    cards.splice(id, 1);
+    document.getElementById("card").innerHTML = thing; // set HTML ID to card selected
+    cards.splice(id, 1); // remove card from pile
+    // Updated HTML ID to remaining cards left
     document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
 }
-</script>
-
-</body>
-</html>

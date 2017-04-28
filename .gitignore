@@ -1,0 +1,5 @@
+.DS_Store
+Cards
+node_modules
+database.rules.json 
+firebase.json 
