@@ -12,7 +12,7 @@ var roomID;
 var name;
 // var thing = "Draw a Card";
 var response = "";
-var host = 0;
+var host = false;
 // var Things = firebase.database().ref("/").child('Things');
 var count = 0;
 getCount();
@@ -27,6 +27,7 @@ var flag=0;
 function hostButton(){
 	document.getElementById("LoginButtons").style.display = "none";
 	document.getElementById("host_form").style.display = "block";
+	generateRoomID();
 	
 }
 
@@ -44,57 +45,92 @@ function backToMain(){
 function SelectCard(){
 	document.getElementById("responce").style.display = "block";
 	document.getElementById("cardButtons").style.display = "none";
+	thingCardSelected();
 }
 
 
 function host_join(){
 	
-	document.getElementById("host_form").style.display = "none";
-	document.getElementById("gameBoard").style.display = "block";
-	document.getElementById("cardButtons").style.display = "block";
+	name = document.forms["host_form"]["name"].value.trim();
+	
+	if (name == "" | name == " "){
+		alert("You must enter your name");
+	}else if (! /^[a-zA-Z0-9]+$/.test(name)) {
+	    alert("Name can't contain '.' , '$' or '#'"); 
+	    // add aphlanumeic a - Z and 0 - 9
+	}else{
 
-	name = document.forms["host_form"]["name"].value;
-	roomID = "room3"; // make rand word gen\
+		document.getElementById("host_form").style.display = "none";
+		document.getElementById("gameBoard").style.display = "block";
+		document.getElementById("cardButtons").style.display = "block";
 
-	// if name is null 
+		document.getElementById("roomID").innerHTML= "" + roomID;
 
-	// hide host form
+		host = true; 
 
-	host = 1; 
+		syncDBtoDiv(roomID,'thing','card');
+		writeThing(roomID,"Draw A Card");
+		userInit(roomID,name,host);
+		// console.log(count);
 
-	syncDBtoDiv(roomID,'thing','card');
-	writeThing(roomID,"Draw A Card");
-	// writeUserSubmit(roomID, name, response);
-	// console.log(count);
+		// retrieve the last record from `ref`
 
-	// retrieve the last record from `ref`
-
-	getPlayers();
-
+		getPlayers("users");
+	}
 }
 
 function syncDBtoDiv(roomID,dbNode,divID){
-	var dbRef = firebase.database().ref("/"+ roomID).child(dbNode);
+	var dbRef = firebase.database().ref("/GameRooms/"+ roomID + '/card/').child(dbNode);
 	dbRef.on('value', snap => document.getElementById(divID).innerText = snap.val());
 }
 
 
 function join_game(){
 
-	document.getElementById("join_form").style.display = "none";
-	document.getElementById("gameBoard").style.display = "block";
-	document.getElementById("responce").style.display = "block";
+	roomID = document.forms["join_form"]["roomID"].value.trim().toLowerCase();
+	name = document.forms["join_form"]["name"].value.trim();
 
-	roomID = document.forms["join_form"]["roomID"].value;
-	name = document.forms["join_form"]["name"].value;
-	// if name or room is null retry
-	// if room already exists retry
+// if name or room is null or if not alphanumaric dont allow join game
+	if (name == "" || name == " " || roomID == "" | roomID == " "){
+		alert("You must enter your name and roomID");
+	}else if (! /^[a-zA-Z0-9]+$/.test(name)) {
+	    alert("Name can't contain '.' , '$' or '#'");
+	    // @TODO must be alpghanumiic !!
+	}else{
+		// if syntax is correct for roomid and name then check if name and roomid exists
 
-	// hide join form 
+		// snapshot of rooms promise
+		firebase.database().ref('/GameRooms/').once('value', function(snapshot) {
+		}).then(roomSnap =>{
+			// then snapshot of users promise
+			firebase.database().ref('/GameRooms/' + roomID + '/users/').once('value', function(snapshot){
+			}).then(userSnap =>{
+				
+				// if room exisits move on
+				if (roomSnap.hasChild(roomID)){
+					// if user exists 
+					if (userSnap.hasChild(name)){	
+						alert("name invalid");
+					// if user does not exists
+					}else{
+						// join game
+						document.getElementById("join_form").style.display = "none";
+						document.getElementById("gameBoard").style.display = "block";
+						// document.getElementById("responce").style.display = "block";
+						cardSelected();
 
-	host = 0;
-	syncDBtoDiv(roomID,'thing','card');
-	// writeUserSubmit(roomID, name, response);
+						host = false;
+						syncDBtoDiv(roomID,'thing','card');
+						userInit(roomID,name,host);
+					}
+				// if room does not exists
+				}else{
+					alert("roomID invalid");
+				}
+			});	
+		});
+	}
+
 }
 
 function submitResponce(){
@@ -107,15 +143,38 @@ function submitResponce(){
 	}
 }
 
+function thingCardSelected(){
+	firebase.database().ref("/GameRooms/"+roomID+'/card/').update({
+		selected: true,
+	});
+}
+function cardSelected(){
+	firebase.database().ref('/GameRooms/' + roomID + '/card/').on('child_added', function(snapshot) {
+		if (snapshot.key == "selected"){
+			document.getElementById("responce").style.display = "block";
+		}
+	});
+}
+
 
 function writeUserSubmit(roomID,name,answer) {
-	firebase.database().ref("/"+roomID+"/users/"+name).update({
+	firebase.database().ref("/GameRooms/"+roomID+"/users/"+name).update({
+		submited: true,
 		answer: answer,
 	});
 }
 
+function userInit(roomID,name,host) {
+	firebase.database().ref("/GameRooms/"+roomID+"/users/"+name).update({
+		host: host,
+		submited: false,
+		answer: "",
+	});
+}
+
 function writeThing(roomID, card) {
-	firebase.database().ref('/' + roomID).update({
+	firebase.database().ref('/GameRooms/' + roomID + '/card/').update({
+		thingAddedAt: firebase.database.ServerValue.TIMESTAMP,
 		thing: card,
 	});
 }
@@ -147,9 +206,9 @@ function getRandCardID(){
 	return "NoMoreCards" ;
 }
 
-
-function getPlayers(){
-	firebase.database().ref('/' + roomID + '/users/').on('child_added', function(snapshot) {
+// new game loading...
+function getPlayers(location){
+	firebase.database().ref('/GameRooms/' + roomID + '/' + location + '/').on('child_changed', function(snapshot) {
 	   // all records after the last continue to invoke this function
 	   
 	   var li = snapshot.key;
@@ -161,6 +220,7 @@ function getPlayers(){
 
 	});
 }
+
 
 
 function AllIN(){
@@ -178,7 +238,7 @@ function AllIN(){
 
 function getVal(){
 
-	var query = firebase.database().ref(roomID+'/users/').orderByKey();
+	var query = firebase.database().ref("/GameRooms/" + roomID +'/users/').orderByKey();
 	return query.once("value").then(function(snapshot) {
 	    snapshot.forEach(function(childSnapshot) {
 	      // key will be "ada" the first time and "alan" the second time
@@ -210,15 +270,15 @@ function printVal(){
 
 
 
-window.onunload = function(){
+// window.onunload = function(){
 
-	if (!host){
-		firebase.database().ref('/' + roomID + '/users/' + name).remove();
-	}
-	else{
-		firebase.database().ref('/' + roomID).remove();
-	}
-}
+// 	if (!host){
+// 		firebase.database().ref('/GameRooms/' + roomID + '/users/' + name).remove();
+// 	}
+// 	else{
+// 		firebase.database().ref('/GameRooms/' + roomID).remove();
+// 	}
+// }
 
 
 
@@ -235,3 +295,29 @@ function myFunction() {
 	getAndshareThing(roomID, id);
 }
 
+
+function generateRoomID() {
+    var requestStr = "http://randomword.setgetgo.com/get.php?len=4";
+
+    $.ajax({
+        type: "GET",
+        url: requestStr,
+        dataType: "jsonp",
+        jsonpCallback: 'SetRoomID'
+    });
+}
+
+function SetRoomID(data) {
+	var ID = data.Word.toLowerCase();
+	checkIfRoomExists(ID);
+}
+
+function checkIfRoomExists(ID) {
+	firebase.database().ref('/GameRooms/').once('value', function(snapshot) {
+	    if (snapshot.hasChild(ID)){
+	    	generateRoomID();
+	    }else{
+	    	roomID = ID;
+	    }
+  });
+}

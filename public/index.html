@@ -15,12 +15,35 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
+	<style>
+	.button{
+		padding: 10px 15px;
+		/*width: 50px;*/
+		margin: 10px;
+		text-align: center;
+
+		color: #555555;
+		
+		border: 1px solid #BBBBBB;
+	    border-radius: 5px;
+
+	    width:100px;
+	    height: 50%;
+	    /*float:left;*/
+	}
+
+	.button:hover{
+		color: #333333;
+		border: 1px solid #888888;
+	}
+	</style>
+
 <body>
 <h2>The Game of Things</h2>
 
 <div class="center">
-	<a class="button" onclick="window.open('./Local','_self');">Local</a>
-	<a class="button" onclick="window.open('./Multiplayer','_self');">Multiplayer</a>
+	<div class="button" onclick="window.open('./Local','_self');">Local</div>
+	<div class="button" onclick="window.open('./Multiplayer','_self');">Multiplayer</div>
 </div>
 
 <br>
