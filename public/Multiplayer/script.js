@@ -297,8 +297,9 @@ function myFunction() {
 
 
 function generateRoomID() {
+	console.log("called");
     var requestStr = "http://randomword.setgetgo.com/get.php?len=4";
-
+	// var requestStr = "https://us-central1-things-f7808.cloudfunctions.net/word"
     $.ajax({
         type: "GET",
         url: requestStr,
@@ -309,6 +310,7 @@ function generateRoomID() {
 
 function SetRoomID(data) {
 	var ID = data.Word.toLowerCase();
+	console.log(ID);
 	checkIfRoomExists(ID);
 }
 
