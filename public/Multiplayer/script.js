@@ -21,6 +21,7 @@ getCount();
 var usedCards = [];
 var responceJSON;
 var responseARRAY = [];
+var current = 0;
 var flag=0;
 
 // Style
@@ -45,6 +46,10 @@ function backToMain(){
 function SelectCard(){
 	document.getElementById("responce").style.display = "block";
 	document.getElementById("cardButtons").style.display = "none";
+	document.getElementById("cardContainer").classList.remove('margin10TopBottom');
+	document.getElementById("card").classList.remove('height6em');
+	document.getElementById("card").classList.remove('texth1');
+	document.getElementById("card").classList.add('textp');
 	thingCardSelected();
 }
 
@@ -64,7 +69,7 @@ function host_join(){
 		document.getElementById("gameBoard").style.display = "block";
 		document.getElementById("cardButtons").style.display = "block";
 
-		document.getElementById("roomID").innerHTML= "" + roomID;
+		document.getElementById("roomID").innerHTML= "RoomID: " + roomID;
 
 		host = true; 
 
@@ -116,6 +121,7 @@ function join_game(){
 						// join game
 						document.getElementById("join_form").style.display = "none";
 						document.getElementById("gameBoard").style.display = "block";
+						document.getElementById("roomID").innerHTML= "RoomID: " + roomID;
 						// document.getElementById("responce").style.display = "block";
 						cardSelected();
 
@@ -134,12 +140,16 @@ function join_game(){
 }
 
 function submitResponce(){
-	answer = document.forms["responce_form"]["ans"].value;
-	writeUserSubmit(roomID,name,answer);
-	document.getElementById("cardButtons").style.display = "none";
-	document.getElementById("responce").style.display = "none";
-	if (host){
-		document.getElementById("StartGame").style.display = "block";
+	answer = document.forms["responce_form"]["ans"].value.trim();
+	if (answer == "" | answer == " "){
+		alert("you must enter a response");
+	}else{
+		writeUserSubmit(roomID,name,answer);
+		document.getElementById("cardButtons").style.display = "none";
+		document.getElementById("responce").style.display = "none";
+		if (host){
+			document.getElementById("StartGame").style.display = "block";
+		}
 	}
 }
 
@@ -230,7 +240,7 @@ function AllIN(){
 	if (host) {
 		document.getElementById("responcelist").style.display = "block";
 	}
-	
+
 	getVal();
 
 }
@@ -246,28 +256,61 @@ function getVal(){
 	      // childData will be the actual contents of the child
 	      responseARRAY.push(childSnapshot.val().answer);  
 	  	});
+
+	  	responseARRAY = shuffle(responseARRAY);
 	    
-	    printVal();
+	    if (responseARRAY.length == 1){
+	    	printVal(0);
+	    }else if (responseARRAY.length > 1){
+	    	document.getElementById("nextThingButton").style.display = "block";
+			printVal(0);
+	    }else{
+	    	console.log("error: need at least 1 responce");
+	    }
 	});
 }
 
-function printVal(){
+// function printVal(){
 
-	for (var i=0; i<responseARRAY.length; i++){
+// 	for (var i=0; i<responseARRAY.length; i++){
 
-		// console.log(responseARRAY[i]);
+// 		// console.log(responseARRAY[i]);
 
-		var li = responseARRAY[i];
+// 		var li = responseARRAY[i];
 
-		var node = document.createElement("LI");
-	    var textnode = document.createTextNode(li);
-	    node.appendChild(textnode);
-	    document.getElementById("thing").appendChild(node);
+// 		var node = document.createElement("LI");
+// 	    var textnode = document.createTextNode(li);
+// 	    node.appendChild(textnode);
+// 	    document.getElementById("thing").appendChild(node);
+// 	}
+
+// 	responseARRAY = [];
+// }
+
+function printVal(id){
+
+	if (current < (responseARRAY.length > 1)){
+		document.getElementById("prevThingButton").style.display = "none";
+	} else if (current == responseARRAY.length -1){
+		document.getElementById("nextThingButton").style.display = "none";
+	}else{
+		document.getElementById("prevThingButton").style.display = "block";
 	}
 
-	responseARRAY = [];
+	document.getElementById('thing').innerHTML = responseARRAY[id];
 }
 
+function prevThing(){
+	current -= 1;
+	if (current == 0){
+		document.getElementById("nextThingButton").style.display = "block";
+	}
+	printVal(current);
+}
+function nextThing(){
+	current += 1;
+	printVal(current);
+}
 
 
 // window.onunload = function(){
@@ -322,4 +365,23 @@ function checkIfRoomExists(ID) {
 	    	roomID = ID;
 	    }
   });
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

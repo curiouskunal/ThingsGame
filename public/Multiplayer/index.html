@@ -3,7 +3,7 @@
 <head>
 	<title>The Game of Things</title>
 
-	<link rel="stylesheet" href="m_style.css">
+	<link rel="stylesheet" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 	<script src="script.js"></script>
@@ -17,22 +17,22 @@
 
 <body>
 <h2 id="title">The Game of Things</h2>
-<h2 id="roomID"></h2>
+<h3 id="roomID"></h3>
 
-<div id="wrap">
+<div class ="wrap">
 
 	<div id=MuliplayerLogin>
 		<div id="LoginButtons">
-		   	<div class= buttonHolder>
-				<div class="button" id="hostButton" onclick="hostButton()"> New Game </div>
-				<div class="button" id="joinButton" onclick="joinButton()"> Join </div>
+		   	<div class="buttonHolder">
+				<div class="button left" id="hostButton" onclick="hostButton()"> New Game </div>
+				<div class="button right" id="joinButton" onclick="joinButton()"> Join </div>
 			</div>
 		</div>
 	    <form id="host_form" name="host_form">
 	        <input type="text" name="name" placeholder="Name"><br>
-	        <div class= buttonHolder>
-		        <div class="button" type="button" value="Create" onclick="host_join()">Create</div>
-		        <div class="button" type="button" value="back" onclick="backToMain()">Back</div>
+	        <div class="buttonHolder">
+		        <div class="button left" type="button" value="Create" onclick="host_join()">Create</div>
+		        <div class="button right" type="button" value="back" onclick="backToMain()">Back</div>
 		    </div>
 	    </form>
 
@@ -40,48 +40,60 @@
 
 		    <input type="text" name="roomID" placeholder="RoomID"><br>
 		   	<input type="text" name="name" placeholder="Name"><br>
-		   	<div class= buttonHolder>
-			    <div class="button" type="button" value="Join" onclick="join_game()">Join</div>
-				<div class="button" type="button" value="back" onclick="backToMain()">Back</div>
+		   	<div class="buttonHolder">
+			    <div class="button left" type="button" value="Join" onclick="join_game()">Join</div>
+				<div class="button right" type="button" value="back" onclick="backToMain()">Back</div>
 			</div>
 	    </form>	
 
 	</div>
 </div>
 
+<div class="wrap">
 <div id = "gameBoard">
-
-	<div class="card">
-		<h1 id="card"> unable to connect to server </h1>
-	</div>
-
-    <div class= buttonHolder id=cardButtons>
-        <div class="button" type="button" value="Select" onclick="SelectCard()">Select</div>
-        <div class="button" type="button" value="Next" onclick="myFunction()">Draw</div>
-    </div>
-	
-	<div id="responce">
-		<form name="responce_form">
-    		<input type="text" name="ans" placeholder="Responce"><br>
-    		<div class="button"type="button" value="Submit" onclick="submitResponce()"> Submit </div>
-		</form>	
-	</div>
-
-	<div id="StartGame">
-		Players:
-		<div id="playersIN"></div>
-		
-		<div>
-			<div class="button" id="responcelistClick" onclick="AllIN()"> All in </div>
+	<div id="cardContainer" class="container margin10TopBottom">
+		<div class="cardHolder">
+			<div id="card" class="height6em texth1"> unable to connect to server </div>
 		</div>
 	</div>
 
+    <div class="buttonHolder" id=cardButtons>
+        <div class="button left" type="button" value="Select" onclick="SelectCard()">Select</div>
+        <div class="button right" type="button" value="Next" onclick="myFunction()">Draw</div>
+    </div>
+</div>
+</div>
+	
+<div class="wrap">
+	<div id="responce">
+		<form name="responce_form">
+    		<input type="text" name="ans" placeholder="Responce"><br>
+    		<div id="submitResponceButton" class="button"  type="button" value="Submit" onclick="submitResponce()"> Submit </div>
+		</form>	
+	</div>
+</div>
+	<div class = "wrap" id="StartGame">
+		<div class="shade">
+			<p> Players: </p>
+			<div id="playersIN"></div>
+		</div>
+		
+		<div id="allINClick" class="button"  onclick="AllIN()"> All in </div>
+	</div>
+
 	<div id= "responcelist">
-		<div id="thing"></div>
-		<!-- <button id="nextThing" onclick="nextThing()"> Next </button> -->
+	<div class="wrap">
+		<div class="cardHolder">
+			<div id="thing" class="texth1 height6em"></div>
+		</div>
+	</div>
+		<div class="buttonHolder">
+	        <div id="prevThingButton" class="button left" type="button" value="Back" onclick="prevThing()">Back</div>
+	        <div id="nextThingButton" class="button right" type="button" value="Next" onclick="nextThing()">Next</div>
+	    </div>
+
 	</div>
 	
-</div>
 
 
 
