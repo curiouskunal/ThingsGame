@@ -127,6 +127,22 @@
     display: none;
 }
 
+#readAgain{
+    display: none;
+    margin: 0 auto;
+}
+
+#start{
+    display: none;
+    margin: 0 auto;
+}
+
+#message{
+    display: none;
+    vertical-align: middle;
+    text-align: center;
+}
+
 
 .buttonHolder{
     margin: 0 auto;

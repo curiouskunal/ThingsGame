@@ -149,6 +149,8 @@ function submitResponce(){
 		document.getElementById("responce").style.display = "none";
 		if (host){
 			document.getElementById("StartGame").style.display = "block";
+		}else{
+			document.getElementById("message").style.display = "table-cell";
 		}
 	}
 }
@@ -264,11 +266,11 @@ function getVal(){
 	  	responseARRAY = shuffle(responseARRAY);
 	    
 	    if (responseARRAY.length == 1){
-	    	document.getElementById('thing').innerHTML = responseARRAY[id];
+	    	document.getElementById('thing').innerHTML = responseARRAY[0];
 	    }else if (responseARRAY.length > 1){
-	    	document.getElementById("prevThingButton").style.display = "block";
+	    	// document.getElementById("prevThingButton").style.display = "block";
 	    	document.getElementById("nextThingButton").style.display = "block";
-	    	document.getElementById("prevThingButton").style.visibility = "hidden";
+	    	// document.getElementById("prevThingButton").style.visibility = "hidden";
 			printVal(0);
 	    }else{
 	    	console.log("error: need at least 1 responce");
@@ -276,35 +278,18 @@ function getVal(){
 	});
 }
 
-// function printVal(){
-
-// 	for (var i=0; i<responseARRAY.length; i++){
-
-// 		// console.log(responseARRAY[i]);
-
-// 		var li = responseARRAY[i];
-
-// 		var node = document.createElement("LI");
-// 	    var textnode = document.createTextNode(li);
-// 	    node.appendChild(textnode);
-// 	    document.getElementById("thing").appendChild(node);
-// 	}
-
-// 	responseARRAY = [];
-// }
-
 function printVal(id){
 
 	if(current == 0){
 		document.getElementById("nextThingButton").style.visibility = "visible";
 	} else if (current < (responseARRAY.length - 1)){
 		document.getElementById("nextThingButton").style.visibility = "visible";
-		document.getElementById("prevThingButton").style.visibility = "visible";
+		// document.getElementById("prevThingButton").style.visibility = "visible";
 	} else if (current == responseARRAY.length -1){
-		document.getElementById("prevThingButton").style.visibility = "visible";
+		// document.getElementById("prevThingButton").style.visibility = "visible";
 		document.getElementById("nextThingButton").style.visibility = "hidden";
 	}else{
-		document.getElementById("prevThingButton").style.visibility = "visible";
+		// document.getElementById("prevThingButton").style.visibility = "visible";
 	}
 
 	document.getElementById('thing').innerHTML = responseARRAY[id];
@@ -320,13 +305,32 @@ function prevThing(){
 	}
 	printVal(current);
 }
+var readAgainFlag = true;
+
 function nextThing(){
 	current += 1;
 	if(current == responseARRAY.length -1){
 		document.getElementById("nextThingButton").style.visibility = "hidden";
-		document.getElementById("prevThingButton").style.visibility = "visible";
+		// document.getElementById("prevThingButton").style.visibility = "visible";
+		if(readAgainFlag){
+			document.getElementById("readAgain").style.display = "block";
+			readAgainFlag = false;
+		}else{
+			document.getElementById("readAgain").style.display = "none";
+			document.getElementById("start").style.display = "block";
+		}
 	}
 	printVal(current);
+}
+function readAgain() {
+	document.getElementById("readAgain").style.display = "none";
+	current = 0;
+	printVal(0);
+}
+
+function startgame(){
+	document.getElementById("responcelist").style.display = "none";
+	document.getElementById("message").style.display = "table-cell";
 }
 
 
