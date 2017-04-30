@@ -162,6 +162,10 @@ function cardSelected(){
 	firebase.database().ref('/GameRooms/' + roomID + '/card/').on('child_added', function(snapshot) {
 		if (snapshot.key == "selected"){
 			document.getElementById("responce").style.display = "block";
+			document.getElementById("cardContainer").classList.remove('margin10TopBottom');
+			document.getElementById("card").classList.remove('height6em');
+			document.getElementById("card").classList.remove('texth1');
+			document.getElementById("card").classList.add('textp');
 		}
 	});
 }
@@ -260,9 +264,11 @@ function getVal(){
 	  	responseARRAY = shuffle(responseARRAY);
 	    
 	    if (responseARRAY.length == 1){
-	    	printVal(0);
+	    	document.getElementById('thing').innerHTML = responseARRAY[id];
 	    }else if (responseARRAY.length > 1){
+	    	document.getElementById("prevThingButton").style.display = "block";
 	    	document.getElementById("nextThingButton").style.display = "block";
+	    	document.getElementById("prevThingButton").style.visibility = "hidden";
 			printVal(0);
 	    }else{
 	    	console.log("error: need at least 1 responce");
@@ -289,26 +295,37 @@ function getVal(){
 
 function printVal(id){
 
-	if (current < (responseARRAY.length > 1)){
-		document.getElementById("prevThingButton").style.display = "none";
+	if(current == 0){
+		document.getElementById("nextThingButton").style.visibility = "visible";
+	} else if (current < (responseARRAY.length - 1)){
+		document.getElementById("nextThingButton").style.visibility = "visible";
+		document.getElementById("prevThingButton").style.visibility = "visible";
 	} else if (current == responseARRAY.length -1){
-		document.getElementById("nextThingButton").style.display = "none";
+		document.getElementById("prevThingButton").style.visibility = "visible";
+		document.getElementById("nextThingButton").style.visibility = "hidden";
 	}else{
-		document.getElementById("prevThingButton").style.display = "block";
+		document.getElementById("prevThingButton").style.visibility = "visible";
 	}
 
 	document.getElementById('thing').innerHTML = responseARRAY[id];
+	document.getElementById('cardCount').innerHTML = current + 1 + '/' + responseARRAY.length;
 }
 
 function prevThing(){
 	current -= 1;
 	if (current == 0){
-		document.getElementById("nextThingButton").style.display = "block";
+		document.getElementById("nextThingButton").style.visibility = "visible";
+		document.getElementById("prevThingButton").style.visibility = "hidden";
+
 	}
 	printVal(current);
 }
 function nextThing(){
 	current += 1;
+	if(current == responseARRAY.length -1){
+		document.getElementById("nextThingButton").style.visibility = "hidden";
+		document.getElementById("prevThingButton").style.visibility = "visible";
+	}
 	printVal(current);
 }
 
