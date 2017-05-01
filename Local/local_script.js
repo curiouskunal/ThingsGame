@@ -697,8 +697,8 @@ var cards = [
 	"Things A Gentleman Shouldn't Do"
 ];
 
-document.getElementById("card").innerHTML = "Draw a card";
-document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
+// document.getElementById("card").innerText = "Draw a card";
+document.getElementById("remaining").innerText = "" + cards.length + " Cards Left";
 function myFunction() {
     var id = Math.floor((Math.random() * cards.length)); // get rand card from cards list
     var thing = cards[id];

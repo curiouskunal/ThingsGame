@@ -74,7 +74,8 @@ function host_join(){
 		host = true; 
 
 		syncDBtoDiv(roomID,'thing','card');
-		writeThing(roomID,"Draw A Card");
+		// writeThing(roomID,"Draw A Card");
+		DrawCard();
 		userInit(roomID,name,host);
 		// console.log(count);
 
@@ -348,7 +349,7 @@ function startgame(){
 
 // document.getElementById("card").innerHTML = "Draw a card";
 // document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
-function myFunction() {
+function DrawCard() {
     
 	if (!host){
 		return 0;
