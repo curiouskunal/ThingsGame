@@ -23,6 +23,7 @@ var responceJSON;
 var responseARRAY = [];
 var current = 0;
 var flag=0;
+var numberOfPlayers = 0;
 
 // Style
 function hostButton(){
@@ -234,22 +235,24 @@ function getPlayers(location){
 	    var textnode = document.createTextNode(li);
 	    node.appendChild(textnode);
 	    document.getElementById("playersIN").appendChild(node);
-
+	    numberOfPlayers++;
 	});
 }
 
 
 
 function AllIN(){
-	document.getElementById("responce").style.display = "none";
-	document.getElementById("StartGame").style.display = "none";
-	
-	if (host) {
-		document.getElementById("responcelist").style.display = "block";
+
+	if (numberOfPlayers < 2){
+		alert("This is MULTIplayer ... ask some more players to join in !! Your RoomID is " + roomID);
+	}else{
+		document.getElementById("responce").style.display = "none";
+		document.getElementById("StartGame").style.display = "none";
+		if (host) {
+			document.getElementById("responcelist").style.display = "block";
+		}
+		getVal();		
 	}
-
-	getVal();
-
 }
 
 

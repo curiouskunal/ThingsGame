@@ -98,11 +98,11 @@
     display: none;
 }
 .shade{
-    background-color: grey;
+    background-color: #F9F9F9;
     text-align: center;
     margin: 0 auto;
-    border: 1px solid #BBBBBB;
-    border-radius: 5px;
+    border: 2px solid #A1A1A1;
+    border-radius: 10px;
     width: 310px;
     /*height: 7em;*/
     margin-bottom: 10px;
