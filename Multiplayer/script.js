@@ -365,21 +365,11 @@ function DrawCard() {
 
 
 function generateRoomID() {
-	console.log("called");
-    var requestStr = "http://randomword.setgetgo.com/get.php?len=4";
-	// var requestStr = "https://us-central1-things-f7808.cloudfunctions.net/word"
-    $.ajax({
-        type: "GET",
-        url: requestStr,
-        dataType: "jsonp",
-        jsonpCallback: 'SetRoomID'
-    });
-}
-
-function SetRoomID(data) {
-	var ID = data.Word.toLowerCase();
-	console.log(ID);
-	checkIfRoomExists(ID);
+	id = (Math.floor((Math.random() * 2404)))+1;
+	
+	return firebase.database().ref('/Words/' + id).once('value').then(function(snapshot) {
+		checkIfRoomExists(snapshot.val());
+	});
 }
 
 function checkIfRoomExists(ID) {
