@@ -366,7 +366,7 @@ function DrawCard() {
 
 function generateRoomID() {
 	id = (Math.floor((Math.random() * 2404)))+1;
-	
+
 	return firebase.database().ref('/Words/' + id).once('value').then(function(snapshot) {
 		checkIfRoomExists(snapshot.val());
 	});
