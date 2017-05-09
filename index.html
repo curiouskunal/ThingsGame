@@ -3,10 +3,10 @@
 <head>
 	<title>The Game of Things</title>
 
-	<!-- <link rel="stylesheet" href="style.css"> -->
-
+	<link rel="stylesheet" href="style.css">
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-	<script src="script.js"></script>
+	<!-- <script src="script.js"></script> -->
+
 
 	<!-- tab icon -->
 	<link rel="icon" href="./assets/Icon.ico">
@@ -15,40 +15,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-	<style>
-	.button{
-		padding: 10px 15px;
-		/*width: 50px;*/
-		margin: 10px;
-		text-align: center;
-
-		color: #555555;
-		
-		border: 1px solid #BBBBBB;
-	    border-radius: 5px;
-
-	    width:100px;
-	    height: 50%;
-	    /*float:left;*/
-	}
-
-	.button:hover{
-		color: #333333;
-		border: 1px solid #888888;
-	}
-	</style>
-
 <body>
-<h2>The Game of Things</h2>
+<h2 id = "title">The Game of Things</h2>
 
-<div class="center">
-	<div class="button" onclick="window.open('./Local','_self');">Local</div>
-	<div class="button" onclick="window.open('./Multiplayer','_self');">Multiplayer</div>
+<div class="wrap">
+	<div class="center">
+		<div class="button left" onclick="window.open('./Local','_self');">Local</div>
+		<div class="button right" onclick="window.open('./Multiplayer','_self');">Multiplayer</div>
+	</div>
 </div>
 
-<br>
-
 <div id="rules">
+<h3> How To Play </h3>
 <p>Things... is a party game where everyone writes a response to a particular prompt, such as "Things... you shouldn't put in your mouth," and the players then try to guess which player wrote which response.</p>
 
 <p>A reader is chosen. This reader reads aloud a Topic Card. The players all write a response, fold up the slip of paper and turn it in to the reader, who reads them aloud once and then a second time. The player to the left of the reader has to guess who wrote which response. This is all done from memory, without benefit of taking notes or having the responses read again. If the guesser is correct, he or she continues guessing until incorrect, at which time the player to his/her left tries guessing. Players whose responses were correctly identified are eliminated and cannot make guesses. The round ends when one player has not been matched to a response.</p>

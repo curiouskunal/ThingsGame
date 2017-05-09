@@ -21,7 +21,9 @@ getCount();
 var usedCards = [];
 var responceJSON;
 var responseARRAY = [];
+var current = 0;
 var flag=0;
+var numberOfPlayers = 0;
 
 // Style
 function hostButton(){
@@ -45,6 +47,10 @@ function backToMain(){
 function SelectCard(){
 	document.getElementById("responce").style.display = "block";
 	document.getElementById("cardButtons").style.display = "none";
+	document.getElementById("cardContainer").classList.remove('margin10TopBottom');
+	document.getElementById("card").classList.remove('height6em');
+	document.getElementById("card").classList.remove('texth1');
+	document.getElementById("card").classList.add('textp');
 	thingCardSelected();
 }
 
@@ -64,12 +70,13 @@ function host_join(){
 		document.getElementById("gameBoard").style.display = "block";
 		document.getElementById("cardButtons").style.display = "block";
 
-		document.getElementById("roomID").innerHTML= "" + roomID;
+		document.getElementById("roomID").innerHTML= "RoomID: " + roomID;
 
 		host = true; 
 
 		syncDBtoDiv(roomID,'thing','card');
-		writeThing(roomID,"Draw A Card");
+		// writeThing(roomID,"Draw A Card");
+		DrawCard();
 		userInit(roomID,name,host);
 		// console.log(count);
 
@@ -116,6 +123,7 @@ function join_game(){
 						// join game
 						document.getElementById("join_form").style.display = "none";
 						document.getElementById("gameBoard").style.display = "block";
+						document.getElementById("roomID").innerHTML= "RoomID: " + roomID;
 						// document.getElementById("responce").style.display = "block";
 						cardSelected();
 
@@ -134,12 +142,18 @@ function join_game(){
 }
 
 function submitResponce(){
-	answer = document.forms["responce_form"]["ans"].value;
-	writeUserSubmit(roomID,name,answer);
-	document.getElementById("cardButtons").style.display = "none";
-	document.getElementById("responce").style.display = "none";
-	if (host){
-		document.getElementById("StartGame").style.display = "block";
+	answer = document.forms["responce_form"]["ans"].value.trim();
+	if (answer == "" | answer == " "){
+		alert("you must enter a response");
+	}else{
+		writeUserSubmit(roomID,name,answer);
+		document.getElementById("cardButtons").style.display = "none";
+		document.getElementById("responce").style.display = "none";
+		if (host){
+			document.getElementById("StartGame").style.display = "block";
+		}else{
+			document.getElementById("message").style.display = "table-cell";
+		}
 	}
 }
 
@@ -152,6 +166,10 @@ function cardSelected(){
 	firebase.database().ref('/GameRooms/' + roomID + '/card/').on('child_added', function(snapshot) {
 		if (snapshot.key == "selected"){
 			document.getElementById("responce").style.display = "block";
+			document.getElementById("cardContainer").classList.remove('margin10TopBottom');
+			document.getElementById("card").classList.remove('height6em');
+			document.getElementById("card").classList.remove('texth1');
+			document.getElementById("card").classList.add('textp');
 		}
 	});
 }
@@ -217,22 +235,24 @@ function getPlayers(location){
 	    var textnode = document.createTextNode(li);
 	    node.appendChild(textnode);
 	    document.getElementById("playersIN").appendChild(node);
-
+	    numberOfPlayers++;
 	});
 }
 
 
 
 function AllIN(){
-	document.getElementById("responce").style.display = "none";
-	document.getElementById("StartGame").style.display = "none";
-	
-	if (host) {
-		document.getElementById("responcelist").style.display = "block";
-	}
-	
-	getVal();
 
+	if (numberOfPlayers < 2){
+		alert("This is MULTIplayer ... ask some more players to join in !! Your RoomID is " + roomID);
+	}else{
+		document.getElementById("responce").style.display = "none";
+		document.getElementById("StartGame").style.display = "none";
+		if (host) {
+			document.getElementById("responcelist").style.display = "block";
+		}
+		getVal();		
+	}
 }
 
 
@@ -246,28 +266,76 @@ function getVal(){
 	      // childData will be the actual contents of the child
 	      responseARRAY.push(childSnapshot.val().answer);  
 	  	});
+
+	  	responseARRAY = shuffle(responseARRAY);
 	    
-	    printVal();
+	    if (responseARRAY.length == 1){
+	    	document.getElementById('thing').innerHTML = responseARRAY[0];
+	    }else if (responseARRAY.length > 1){
+	    	// document.getElementById("prevThingButton").style.display = "block";
+	    	document.getElementById("nextThingButton").style.display = "block";
+	    	// document.getElementById("prevThingButton").style.visibility = "hidden";
+			printVal(0);
+	    }else{
+	    	console.log("error: need at least 1 responce");
+	    }
 	});
 }
 
-function printVal(){
+function printVal(id){
 
-	for (var i=0; i<responseARRAY.length; i++){
-
-		// console.log(responseARRAY[i]);
-
-		var li = responseARRAY[i];
-
-		var node = document.createElement("LI");
-	    var textnode = document.createTextNode(li);
-	    node.appendChild(textnode);
-	    document.getElementById("thing").appendChild(node);
+	if(current == 0){
+		document.getElementById("nextThingButton").style.visibility = "visible";
+	} else if (current < (responseARRAY.length - 1)){
+		document.getElementById("nextThingButton").style.visibility = "visible";
+		// document.getElementById("prevThingButton").style.visibility = "visible";
+	} else if (current == responseARRAY.length -1){
+		// document.getElementById("prevThingButton").style.visibility = "visible";
+		document.getElementById("nextThingButton").style.visibility = "hidden";
+	}else{
+		// document.getElementById("prevThingButton").style.visibility = "visible";
 	}
 
-	responseARRAY = [];
+	document.getElementById('thing').innerHTML = responseARRAY[id];
+	document.getElementById('cardCount').innerHTML = current + 1 + '/' + responseARRAY.length;
 }
 
+function prevThing(){
+	current -= 1;
+	if (current == 0){
+		document.getElementById("nextThingButton").style.visibility = "visible";
+		document.getElementById("prevThingButton").style.visibility = "hidden";
+
+	}
+	printVal(current);
+}
+var readAgainFlag = true;
+
+function nextThing(){
+	current += 1;
+	if(current == responseARRAY.length -1){
+		document.getElementById("nextThingButton").style.visibility = "hidden";
+		// document.getElementById("prevThingButton").style.visibility = "visible";
+		if(readAgainFlag){
+			document.getElementById("readAgain").style.display = "block";
+			readAgainFlag = false;
+		}else{
+			document.getElementById("readAgain").style.display = "none";
+			document.getElementById("start").style.display = "block";
+		}
+	}
+	printVal(current);
+}
+function readAgain() {
+	document.getElementById("readAgain").style.display = "none";
+	current = 0;
+	printVal(0);
+}
+
+function startgame(){
+	document.getElementById("responcelist").style.display = "none";
+	document.getElementById("message").style.display = "table-cell";
+}
 
 
 // window.onunload = function(){
@@ -284,7 +352,7 @@ function printVal(){
 
 // document.getElementById("card").innerHTML = "Draw a card";
 // document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
-function myFunction() {
+function DrawCard() {
     
 	if (!host){
 		return 0;
@@ -297,21 +365,11 @@ function myFunction() {
 
 
 function generateRoomID() {
-	console.log("called");
-    var requestStr = "http://randomword.setgetgo.com/get.php?len=4";
-	// var requestStr = "https://us-central1-things-f7808.cloudfunctions.net/word"
-    $.ajax({
-        type: "GET",
-        url: requestStr,
-        dataType: "jsonp",
-        jsonpCallback: 'SetRoomID'
-    });
-}
+	id = (Math.floor((Math.random() * 2404)))+1;
 
-function SetRoomID(data) {
-	var ID = data.Word.toLowerCase();
-	console.log(ID);
-	checkIfRoomExists(ID);
+	return firebase.database().ref('/Words/' + id).once('value').then(function(snapshot) {
+		checkIfRoomExists(snapshot.val());
+	});
 }
 
 function checkIfRoomExists(ID) {
@@ -322,4 +380,23 @@ function checkIfRoomExists(ID) {
 	    	roomID = ID;
 	    }
   });
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

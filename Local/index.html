@@ -4,8 +4,6 @@
 	<title>The Game of Things</title>
 
 	<link rel="stylesheet" href="style.css">
-	<script src="local_script.js"></script>
-
 	<!-- tab icon -->
 	<link rel="icon" href="./assets/Icon.ico">
 
@@ -14,22 +12,20 @@
 </head>
 
 <body>
-<h2>The Game of Things</h2>
+<h2 onclick="window.open('../index.html','_self')">The Game of Things</h2>
 
-<div class="center">
-	<div class="card" onclick="myFunction()">
-		<div id="game">
-			<h1 id="card"> tap me </h1>
-			<!-- <div class = "card_bottom"></div> -->
-			<!-- <button class="button" onclick="myFunction()">DRAW</button> -->
-		</div>
+<div id="cardContainer" class="container margin10TopBottom" onclick="myFunction()" >
+	<div class="cardHolder">
+		<div id="card" class="height6em texth1"> TAP HERE </div>
 	</div>
 </div>
 
 <div class="footer"> 
 	<p id="remaining"></p>
 </div>
-
+<script src="local_script.js"></script>
 </body>
 </html>
+
+
 
