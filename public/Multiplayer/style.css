@@ -143,6 +143,16 @@
     text-align: center;
 }
 
+#scoreFeature{
+    display: none;
+}
+
+#MyScore{
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
 
 .buttonHolder{
     margin: 0 auto;

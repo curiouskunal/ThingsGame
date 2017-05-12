@@ -24,6 +24,7 @@ var responseARRAY = [];
 var current = 0;
 var flag=0;
 var numberOfPlayers = 0;
+var playerScore = 0;
 
 // Style
 function hostButton(){
@@ -153,6 +154,8 @@ function submitResponce(){
 			document.getElementById("StartGame").style.display = "block";
 		}else{
 			document.getElementById("message").style.display = "table-cell";
+			watchScore();
+			document.getElementById("scoreFeature").style.display = "block";
 		}
 	}
 }
@@ -187,6 +190,7 @@ function userInit(roomID,name,host) {
 		host: host,
 		submited: false,
 		answer: "",
+		score: 0,
 	});
 }
 
@@ -194,6 +198,30 @@ function writeThing(roomID, card) {
 	firebase.database().ref('/GameRooms/' + roomID + '/card/').update({
 		thingAddedAt: firebase.database.ServerValue.TIMESTAMP,
 		thing: card,
+	});
+}
+
+function updateScore(update){
+	playerScore += update;
+	document.getElementById("MyScore").innerText = playerScore;
+	firebase.database().ref('/GameRooms/' + roomID + '/users/' + name).update({
+		score: playerScore,
+	});
+}
+
+function watchScore(){
+	var query = firebase.database().ref("/GameRooms/" + roomID);
+	query.on('child_changed', function(snapshot) {
+		if (snapshot.key == "users"){
+	   		snapshot.forEach(function(childSnapshot) {
+	   			// console.log( ": " + childSnapshot.key + ": " + childSnapshot.val().score);
+				var li = childSnapshot.key + ": " + childSnapshot.val().score;
+				var node = document.createElement("LI");
+			    var textnode = document.createTextNode(li);
+			    node.appendChild(textnode);
+			    document.getElementById("everyoneElseScore").appendChild(node);
+	  		});
+	  	}
 	});
 }
 
@@ -205,9 +233,9 @@ function getAndshareThing(roomID, cardID){
 }
 
 function getCount(){
-	firebase.database().ref().once("value").then(function(snapshot) {
-    	count = snapshot.child("/Things").numChildren();
-    	count -=1 // account for "NoMoreCards" child.
+	firebase.database().ref("/Things/").once("value").then(function(snapshot) {
+    	count = snapshot.val().count;
+    	count -=2 // account for "NoMoreCards" and count child.
   });
 }
 
@@ -335,6 +363,10 @@ function readAgain() {
 function startgame(){
 	document.getElementById("responcelist").style.display = "none";
 	document.getElementById("message").style.display = "table-cell";
+	watchScore();
+
+	document.getElementById("scoreFeature").style.display = "block";
+
 }
 
 
