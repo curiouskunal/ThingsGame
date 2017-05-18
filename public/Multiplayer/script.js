@@ -79,11 +79,11 @@ function host_join(){
 		// writeThing(roomID,"Draw A Card");
 		DrawCard();
 		userInit(roomID,name,host);
-		// console.log(count);
 
-		// retrieve the last record from `ref`
+		gameStatusFlag(false);
 
 		getPlayers("users");
+
 	}
 }
 
@@ -142,6 +142,12 @@ function join_game(){
 
 }
 
+function gameStatusFlag(flag){
+	firebase.database().ref("/GameRooms/"+roomID).update({
+		started: flag,
+	});
+}
+
 function submitResponce(){
 	answer = document.forms["responce_form"]["ans"].value.trim();
 	if (answer == "" | answer == " "){
@@ -154,10 +160,12 @@ function submitResponce(){
 			document.getElementById("StartGame").style.display = "block";
 		}else{
 			document.getElementById("message").style.display = "table-cell";
-			watchScore();
-			document.getElementById("scoreFeature").style.display = "block";
+			// watchScore();
+			// document.getElementById("scoreFeature").style.display = "block";
 		}
 	}
+
+	gameStarted();
 }
 
 function thingCardSelected(){
@@ -165,6 +173,25 @@ function thingCardSelected(){
 		selected: true,
 	});
 }
+
+
+function gameStarted() {
+	firebase.database().ref('/GameRooms/' + roomID).on('child_changed', function(snapshot) {
+		
+		// console.log(snapshot.key == "started" + " // " + snapshot.val());
+
+		if (snapshot.key == "started" && snapshot.val() ){
+			document.getElementById("message").style.display = "none";
+			// document.getElementById("cardContainer").classList.add('margin10TopBottom');
+			// document.getElementById("card").classList.add('height6em');
+			// document.getElementById("card").classList.add('texth1');
+			// document.getElementById("card").classList.remove('textp');
+			watchScore();
+			document.getElementById("scoreFeature").style.display = "block";
+		}
+	});
+}
+
 function cardSelected(){
 	firebase.database().ref('/GameRooms/' + roomID + '/card/').on('child_added', function(snapshot) {
 		if (snapshot.key == "selected"){
@@ -203,25 +230,9 @@ function writeThing(roomID, card) {
 
 function updateScore(update){
 	playerScore += update;
-	document.getElementById("MyScore").innerText = playerScore;
+	// document.getElementById("MyScore").innerText = playerScore;
 	firebase.database().ref('/GameRooms/' + roomID + '/users/' + name).update({
 		score: playerScore,
-	});
-}
-
-function watchScore(){
-	var query = firebase.database().ref("/GameRooms/" + roomID);
-	query.on('child_changed', function(snapshot) {
-		if (snapshot.key == "users"){
-	   		snapshot.forEach(function(childSnapshot) {
-	   			// console.log( ": " + childSnapshot.key + ": " + childSnapshot.val().score);
-				var li = childSnapshot.key + ": " + childSnapshot.val().score;
-				var node = document.createElement("LI");
-			    var textnode = document.createTextNode(li);
-			    node.appendChild(textnode);
-			    document.getElementById("everyoneElseScore").appendChild(node);
-	  		});
-	  	}
 	});
 }
 
@@ -255,8 +266,7 @@ function getRandCardID(){
 // new game loading...
 function getPlayers(location){
 	firebase.database().ref('/GameRooms/' + roomID + '/' + location + '/').on('child_changed', function(snapshot) {
-	   // all records after the last continue to invoke this function
-	   
+	   // all records after the last continue to invoke this function 
 	   var li = snapshot.key;
 
 		var node = document.createElement("LI");
@@ -362,10 +372,11 @@ function readAgain() {
 
 function startgame(){
 	document.getElementById("responcelist").style.display = "none";
-	document.getElementById("message").style.display = "table-cell";
-	watchScore();
+	// document.getElementById("message").style.display = "table-cell";
+	gameStatusFlag(true);
+	// watchScore();
 
-	document.getElementById("scoreFeature").style.display = "block";
+	// document.getElementById("scoreFeature").style.display = "block";
 
 }
 
@@ -431,4 +442,39 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+
+//modify other code to remove repeat
+function syncDBtoScore(user_name,divID){
+	var dbRef = firebase.database().ref("/GameRooms/"+ roomID + '/users/' + user_name ).child('score');
+	dbRef.on('value', snap => document.getElementById(divID).innerText = snap.val());
+}
+
+
+function addItem(user_name, user_score) {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = user_name;
+    cell2.innerHTML = user_score;
+    cell2.setAttribute("id", "score_" + user_name);
+}
+
+function watchScore(){
+
+	var query = firebase.database().ref("/GameRooms/" + roomID +'/users/').orderByKey();
+	return query.once("value").then(function(snapshot) {
+	    snapshot.forEach(function(childSnapshot) {
+	      // key will be "ada" the first time and "alan" the second time
+	      var user_name = childSnapshot.key;
+	      // childData will be the actual contents of the child
+	      var user_score = childSnapshot.val().score; 
+
+	      addItem(user_name, user_score);
+	      syncDBtoScore(user_name, "score_" + user_name);
+	  	});
+		// what ever after
+	});
 }
