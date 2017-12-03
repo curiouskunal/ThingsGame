@@ -1,8 +1,12 @@
 #React Branch
+
 ##Todo
+
+- [ ] Forward all domains to one domain. thethingsgame.com
+
 ###Structure
-- [ ] Setup react structure
 - [ ] webpack to public dir
+- [ ] Setup CLI to deploy on firebase after webpack
 - [ ] Add timestamp when game is created by host
 - [ ] Cloud func to remove old games based on timestamp
 
