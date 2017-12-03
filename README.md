@@ -1,10 +1,10 @@
-#React Branch
+# React Branch
 
-##Todo
+## Todo
 
 - [ ] Forward all domains to one domain. thethingsgame.com
 
-###Structure
+### Structure
 - [ ] webpack to public dir
 - [ ] Setup CLI to deploy on firebase after webpack
 - [ ] Add timestamp when game is created by host
