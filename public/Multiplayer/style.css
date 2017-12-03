@@ -149,6 +149,11 @@ tr{
     margin: 0 auto;
 }
 
+.center_buttonHolder{
+    margin: 0 auto;
+    width: 616px;
+}
+
 #start{
     display: none;
     margin: 0 auto;
