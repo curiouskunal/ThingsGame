@@ -4,3 +4,4 @@ Cards
 node_modules
 database.rules.json 
 firebase.json 
+.idea
