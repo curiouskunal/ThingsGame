@@ -8,21 +8,35 @@
 	<link rel="icon" href="./assets/Icon.ico">
 
 	<!--view port-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 
 <body>
 <h2 onclick="window.open('../index.html','_self')">The Game of Things</h2>
 
-<div id="cardContainer" class="container margin10TopBottom" onclick="myFunction()" >
-	<div class="cardHolder">
-		<div id="card" class="height6em texth1"> TAP HERE </div>
+<div class="content">
+	<div class="content-inside">
+
+		<div id="cardContainer" class="container margin10TopBottom" >
+			<div class="cardHolder" onclick="goForward()">
+				<div id="card" class="height6em texth1"> Tap Draw to Start </div>
+				<div id="cardID" class=""> </div>
+			</div>
+			<p id="remaining"></p>
+		</div>
+
+<div class = "buttonHolder">
+		<div class="button left" onclick="goBack()">Back</div> <div class="button right"  onclick="goForward()"> Draw</div>
+</div>
 	</div>
 </div>
 
-<div class="footer"> 
-	<p id="remaining"></p>
-</div>
+<footer>
+	<p> @CuriousKunal </p>
+</footer>
+
+
 <script src="local_script.js"></script>
 </body>
 </html>

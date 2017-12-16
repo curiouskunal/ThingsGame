@@ -1,4 +1,4 @@
-var cards = [
+var deck = [
 
 	"Things cannibals think about while dinning",
 	"Things dogs are actually saying when they bark",
@@ -697,13 +697,37 @@ var cards = [
 	"Things A Gentleman Shouldn't Do"
 ];
 
+var pile = [["Empty Pile </br> Draw To Go Forward",""]];
+var cardNum = 0;
 // document.getElementById("card").innerText = "Draw a card";
-document.getElementById("remaining").innerText = "" + cards.length + " Cards Left";
-function myFunction() {
-    var id = Math.floor((Math.random() * cards.length)); // get rand card from cards list
-    var thing = cards[id];
-    document.getElementById("card").innerHTML = thing; // set HTML ID to card selected
-    cards.splice(id, 1); // remove card from pile
-    // Updated HTML ID to remaining cards left
-    document.getElementById("remaining").innerHTML = "" + cards.length + " Cards Left";
+document.getElementById("remaining").innerText = "" + deck.length + " Cards Left";
+
+function drawNew() {
+    var id = Math.floor((Math.random() * deck.length)); // get rand card from deck list
+    pile.push([deck[id],id]);
+	printCard();
+    deck.splice(id, 1); // remove card from pile
+    // Updated HTML ID to remaining deck left
+    document.getElementById("remaining").innerHTML = "" + deck.length + " Cards Left";
+}
+
+function printCard(){
+	document.getElementById("card").innerHTML = pile[cardNum][0]; // set HTML ID to card selected
+	document.getElementById("cardID").innerHTML = pile[cardNum][1]; // set HTML ID to card selected
+}
+
+function goForward() {
+	cardNum += 1;
+	if (cardNum == pile.length){
+		drawNew();
+	}else{
+		printCard(); // set HTML ID to card selected
+	}	
+}
+
+function goBack(){
+	if(cardNum != 0){
+		cardNum -= 1;
+		printCard();
+	}
 }

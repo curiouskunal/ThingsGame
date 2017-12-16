@@ -1,16 +1,25 @@
-body {
+html, body {
     	background: #00a651;
     	text-align: center;
     	background-color: white;
     	color: black;
-	}
+        margin:0;
+        height: 100%;
+}
+
+.content {
+  min-height: 100%;
+}
+.content-inside {
+  padding: 20px;
+  padding-bottom: 50px;
+}
 
 .height6em{
     height: 10em;
 }
 
 .container{
-    width: 80%;
     margin: 0 auto;
     position:relative;
 }
@@ -19,6 +28,11 @@ body {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
+}
+
+#cardID{
+    display: inline-block; 
+    float: left;
 }
 
 .texth1{
@@ -46,24 +60,46 @@ body {
 }
 
 
-.button{
-/*    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;*/
-}
 
-
-.footer {   
-	position:absolute;
-	left:0px;
-	bottom:0px;
-	height:30px;
+footer {   
+	/*position:absolute;*/
+	/*left:0px;*/
+	/*bottom:0px;*/
+	/*height:30px;*/
+    line-height: 30px;
 	width:100%;
 	background:#999;
+    height: 30px;
+    margin-top: -30px;
 }
 
+
+.buttonHolder{
+    margin: 0 auto;
+    width: 310px;
+}
+.right{
+    float: right;
+}
+.left{
+    float: left;
+}
+
+.button{
+    padding: 10px 15px;
+    margin: 10px;
+    text-align: center;
+
+    color: #555555;
+    
+    border: 1px solid #BBBBBB;
+    border-radius: 5px;
+
+    width:100px;
+    height: 50%;
+}
+
+button:hover{
+    color: #333333;
+    border: 1px solid #888888;
+}
