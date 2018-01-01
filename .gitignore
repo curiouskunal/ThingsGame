@@ -6,3 +6,4 @@ database.rules.json
 firebase.json
 .firebaserc 
 .idea
+client.min.js
