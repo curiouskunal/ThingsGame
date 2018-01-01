@@ -3,5 +3,6 @@ firebase-debug.log
 Cards
 node_modules
 database.rules.json 
-firebase.json 
+firebase.json
+.firebaserc 
 .idea
