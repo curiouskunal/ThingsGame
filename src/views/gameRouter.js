@@ -11,21 +11,28 @@ import GameRoom from './gameViews/gameRoom'
 class GameRouter extends Component {
 
 
+  constructor(props){
+    super(props);
+    this.state = {
+      playerKey: undefined
+    }
+
+    this.setPlayerKey = this.setPlayerKey.bind(this)
+  }
+
+  setPlayerKey(key){
+    this.setState({ playerKey: key });
+  }
+
+
   render(){
     return (
       <BrowserRouter>
-        <Route path="/" exact component={Home}/>
-        <Route path="/new" exact component={NewGame}/>
-        <Route path="/join" exact component={JoinGame}/>
-        <Route path="/room/:id" exact component={GameRoom}/>
+        <Route path="/" exact render={(props) => <Home {...props} />}/>
+        <Route path="/new" exact render={(props) => <NewGame {...props} setPlayerKey={this.setPlayerKey} store={this.state} />}/>
+        <Route path="/join" exact render={(props) => <JoinGame {...props} setPlayerKey={this.setPlayerKey} store={this.state} />}/>
+        <Route path="/room/:id" exact render={(props) => <GameRoom {...props} setPlayerKey={this.setPlayerKey} store={this.state}/>}/>
       </BrowserRouter>
-
-      // <BrowserRouter>
-      //   <Route path="/" exact render={(props) => <Home {...props} navigateTo={this.navigateTo} />}/>
-      //   <Route path="/new" exact render={(props) => <NewGame {...props} navigateTo={this.navigateTo} />}/>
-      //   <Route path="/join" exact render={(props) => <JoinGame {...props} navigateTo={this.navigateTo} />}/>
-      //   <Route path="/room/:id" exact render={(props) => <GameRoom {...props} navigateTo={this.navigateTo} />}/>
-      // </BrowserRouter>
 
     );
   }

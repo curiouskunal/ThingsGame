@@ -14,7 +14,6 @@ class JoinGame extends Component {
     this.state = {
       name: "",
       roomcode: "",
-      playerKey: "",
     }
   }
 
@@ -31,9 +30,7 @@ class JoinGame extends Component {
   navigateToGameRoom() {
     this.props.history.push({
       pathname: `/room/${this.state.roomcode}`,
-      state: {
-        playerKey: this.state.playerKey
-      }
+      search: this.props.store.playerKey,
     });
   }
 
@@ -53,7 +50,7 @@ class JoinGame extends Component {
       const databaseRoot = Firebase.database().ref().child('gameroom');
       const room = databaseRoot.child(`${this.state.roomcode}`).child('players');
       await room.push(this.state.name).then((snap) => {
-        this.setState({playerKey: snap.key});
+        this.props.setPlayerKey(snap.key);
       })
 
       this.navigateToGameRoom();

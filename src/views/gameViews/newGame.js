@@ -14,7 +14,6 @@ class NewGame extends JoinGame {
     this.state = {
       name: "",
       roomcode: "",
-      playerKey: "",
     }
   }
 
@@ -60,7 +59,7 @@ class NewGame extends JoinGame {
   async joinGame() {
     const databaseRoot = Firebase.database().ref().child('gameroom').child(`${this.state.roomcode}`).child('players');
     await databaseRoot.push(this.state.name).then((snap) => {
-      this.setState({ playerKey: snap.key });
+      this.props.setPlayerKey(snap.key);
     })
 
     this.navigateToGameRoom();
