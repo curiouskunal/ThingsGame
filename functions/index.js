@@ -12,8 +12,8 @@ exports.makeUppercase = functions.database.ref('/gameroom/{roomID}/things/{playe
   return snapshot.ref.parent.child(snapshot.key).set(uppercase);
 });
 
-exports.initGameRoom = functions.database.ref('/gameroom/{roomID}').onCreate((snapshot,context)=>{
-  const playerObj = snapshot.val().players;
+exports.initGameRoom = functions.database.ref('/gameroom/{roomID}/players').onCreate((snapshot,context)=>{
+  const playerObj = snapshot.val();
   const host = Object.keys(playerObj)[0];
-  return snapshot.ref.child('hooks').set({status: 'lobby', host: host});
+  return snapshot.ref.parent.child('hooks').set({status: 'lobby', host: host});
 });

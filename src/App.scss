@@ -1,7 +1,43 @@
-.App {
-  text-align: center;
+// .bodyWrapper{
+//   height: 100%;
+// }
+// .wrapperCol {
+//   text-align: center;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%
+// }
+//
+// .header{
+//   text-align: center;
+//   height: 300px;
+//   background-color: black;
+//   color: white;
+// }
+//
+// .startButtoncontainer{
+//   height: 75px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// }
+//
+//
+// @media only screen and (min-width: 600px) {
+//   .startButtoncontainer {
+//     height: auto;
+//     width: 300px;
+//     flex-direction: row;
+//   }
+// }
+
+@import '~antd/dist/antd.css';
+.AppWrapper{
+  height: 100%;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
-  justify-content: center;
-  height: 100vh;
+
 }

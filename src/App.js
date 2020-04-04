@@ -3,27 +3,19 @@ import {Component} from 'react';
 import * as Firebase from 'firebase'
 import './App.scss';
 
+import Header from './views/header'
+import GameRouter from './views/gameRouter'
+import Footer from './views/footer'
+
 class App extends Component {
-
-  constructor(){
-    super();
-    this.state = {
-      value: "Hello World"
-    };
-  }
-
-  componentDidMount(){
-    const rootRef = Firebase.database().ref().child('test');
-    rootRef.on('value', snap => {
-      this.setState({value: snap.val()})
-    })
-  }
-
+  
   render(){
     return (
-      <div className="App">
-        {this.state.value}
-      </div>
+    <div className="AppWrapper">
+      <Header/>
+      <GameRouter/>
+      <Footer/>
+    </div>
     );
   }
 }
